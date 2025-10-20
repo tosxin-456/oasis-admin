@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../config/apiConfig";
+import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -130,16 +131,22 @@ const AdminDashboard = () => {
                 <span className="text-[#21A9A9]">⚡</span>
                 Quick Actions
               </h2>
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                  { label: "Add Movie", icon: "➕" },
-                  { label: "Manage Content", icon: "📋" },
-                  { label: "View Analytics", icon: "📊" },
-                  { label: "Settings", icon: "⚙️" }
+                  { label: "Add Movie", icon: "➕", path: "/admin/new" },
+                  {
+                    label: "Manage Content",
+                    icon: "📋",
+                    path: "/admin/movies"
+                  },
+                  { label: "View Analytics", icon: "📊", path: "/admin" },
+                  { label: "Settings", icon: "⚙️", path: "/admin/settings" }
                 ].map((action, idx) => (
-                  <button
+                  <Link
                     key={idx}
-                    className="bg-[#0D0D0D] hover:bg-[#21A9A9]/20 border border-[#333333] hover:border-[#21A9A9] rounded-lg p-4 transition-all duration-300 text-left group"
+                    to={action.path}
+                    className="bg-[#0D0D0D] hover:bg-[#21A9A9]/20 border border-[#333333] hover:border-[#21A9A9] rounded-lg p-4 transition-all duration-300 text-left group block"
                   >
                     <div className="text-2xl mb-2 group-hover:scale-110 transition-transform">
                       {action.icon}
@@ -147,7 +154,7 @@ const AdminDashboard = () => {
                     <div className="text-sm text-gray-400 group-hover:text-[#21A9A9] transition-colors">
                       {action.label}
                     </div>
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>

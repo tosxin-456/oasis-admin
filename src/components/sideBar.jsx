@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Film,
   Home,
@@ -11,11 +11,21 @@ import {
   ChevronRight
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config/apiConfig";
 
 const AdminSidebar = () => {
   const [open, setOpen] = useState(false);
+  const [admin, setAdmin] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Load admin details from localStorage
+  useEffect(() => {
+    const storedAdmin = localStorage.getItem("admin");
+    if (storedAdmin) {
+      setAdmin(JSON.parse(storedAdmin));
+    }
+  }, []);
 
   const links = [
     { to: "/admin", label: "Dashboard", icon: <Home size={18} /> },
@@ -26,6 +36,7 @@ const AdminSidebar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("admin");
     navigate("/login");
   };
 
@@ -70,11 +81,15 @@ const AdminSidebar = () => {
         <div className="px-4 py-3 border-b border-zinc-800">
           <div className="flex items-center gap-3 p-3 bg-zinc-900/50 rounded-lg">
             <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center">
-              <User size={20} className="text-white" />
+              <User size={20} className="text-white w-[40px]" />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-white">Administrator</p>
-              <p className="text-xs text-gray-400">Super Admin</p>
+              <p className="text-sm font-semibold text-white">
+                {admin?.username || "Administrator"}
+              </p>
+              <p className="text-xs text-gray-400">
+                {admin ? "Super Admin" : "Guest"}
+              </p>
             </div>
           </div>
         </div>
