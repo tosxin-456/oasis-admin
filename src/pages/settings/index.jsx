@@ -10,8 +10,9 @@ import {
   EyeOff,
   Shield
 } from "lucide-react";
+import { API_BASE_URL } from "../../config/apiConfig";
 
-const API_BASE_URL = "http://localhost:5000/api";
+
 
 const AdminSettings = () => {
   const [formData, setFormData] = useState({
