@@ -11,6 +11,7 @@ import AdminNew from "./pages/add new";
 import AdminSettings from "./pages/settings";
 import AdminSidebar from "./components/sideBar";
 import Login from "./pages/login";
+import MovieOfTheWeek from "./pages/movie of the week";
 
 // ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
@@ -25,6 +26,9 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Redirect root path to login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
         {/* Public Route */}
         <Route path="/login" element={<Login />} />
 
@@ -39,6 +43,10 @@ function App() {
                   <Routes>
                     <Route index element={<AdminDashboard />} />
                     <Route path="movies" element={<AdminMovies />} />
+                    <Route
+                      path="movie-of-the-week"
+                      element={<MovieOfTheWeek />}
+                    />
                     <Route path="new" element={<AdminNew />} />
                     <Route path="settings" element={<AdminSettings />} />
                   </Routes>

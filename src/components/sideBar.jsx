@@ -8,7 +8,8 @@ import {
   X,
   LogOut,
   User,
-  ChevronRight
+  ChevronRight,
+  Star
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config/apiConfig";
@@ -27,12 +28,17 @@ const AdminSidebar = () => {
     }
   }, []);
 
-  const links = [
-    { to: "/admin", label: "Dashboard", icon: <Home size={18} /> },
-    { to: "/admin/movies", label: "Movies/Series", icon: <Film size={18} /> },
-    { to: "/admin/new", label: "Add New", icon: <Plus size={18} /> },
-    { to: "/admin/settings", label: "Settings", icon: <Settings size={18} /> }
-  ];
+const links = [
+  { to: "/admin", label: "Dashboard", icon: <Home size={18} /> },
+  { to: "/admin/movies", label: "Movies/Series", icon: <Film size={18} /> },
+  { to: "/admin/new", label: "Add New", icon: <Plus size={18} /> },
+  {
+    to: "/admin/movie-of-the-week",
+    label: "Weekly Pick",
+    icon: <Star size={18} />
+  },
+  { to: "/admin/settings", label: "Settings", icon: <Settings size={18} /> }
+];
 
   const handleLogout = () => {
     localStorage.removeItem("token");
