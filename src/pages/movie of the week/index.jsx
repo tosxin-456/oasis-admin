@@ -634,7 +634,7 @@ const MovieOfTheWeek = () => {
                     ) : (
                       <>
                         <Check size={18} />
-                        <span>Set as MOTW</span>
+                        <span>Set as MOTW </span>
                       </>
                     )}
                   </button>
