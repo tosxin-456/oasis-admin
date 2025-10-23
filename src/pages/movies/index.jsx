@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Search, Film, Tv, X, Check } from "lucide-react";
+import { API_BASE_URL } from "../../config/apiConfig";
 
 const API_KEY = "49e8f09b8364cf1348ed4f97e81039bb";
 const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
-const API_BASE_URL = "http://localhost:5000/api";
+
 
 const AdminMovies = () => {
   const [query, setQuery] = useState("");
@@ -78,12 +79,22 @@ const AdminMovies = () => {
                   selectedMovie.release_date || selectedMovie.first_air_date
                 ).split("-")[0]
               : "N/A",
+          releaseDate:
+            selectedMovie.release_date || selectedMovie.first_air_date || null,
           downloadUrl,
           type,
           poster: selectedMovie.poster_path
             ? `${IMAGE_BASE}${selectedMovie.poster_path}`
             : null,
-          overview: selectedMovie.overview
+          backdrop: selectedMovie.backdrop_path
+            ? `${IMAGE_BASE}${selectedMovie.backdrop_path}`
+            : null,
+          overview: selectedMovie.overview || "No overview available.",
+          genres: selectedMovie.genre_ids || [], // TMDB usually gives genre_ids
+          rating: selectedMovie.vote_average || 0,
+          popularity: selectedMovie.popularity || 0,
+          originalLanguage: selectedMovie.original_language || "N/A",
+          voteCount: selectedMovie.vote_count || 0
         })
       });
 
@@ -98,6 +109,7 @@ const AdminMovies = () => {
         setDownloadUrl("");
         setSelectedMovie(null);
       } else {
+        setShowModal(false);
         showNotification(data.message || "Failed to add download link", false);
       }
     } catch (err) {
